@@ -1,0 +1,50 @@
+{
+  "expo": {
+    "name": "Farma-Box",
+    "slug": "Farma-Box",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/login/LogoAppHome.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "experiments": {
+      "tsconfigPaths": true
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.douglasthebest.FarmaBox"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-font",
+      [
+        "expo-image-picker",
+        {
+          "photoPermission": "The app access your photos to let you share them with your friends."
+        }
+      ],
+      "expo-secure-store"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "be6099c2-2d14-4fc0-8058-2a55bef82ce4"
+      }
+    }
+  }
+}
