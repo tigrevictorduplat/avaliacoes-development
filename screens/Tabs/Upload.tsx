@@ -148,7 +148,7 @@ if (!token) {
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 		>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-				<SafeAreaView className="items-center justify-center mt-4 bg-[#F9F9F9]">
+				<SafeAreaView className="flex-1 items-center justify-center bg-[#F9F9F9]">
 					<View className="w-11/12 bg-[#EDEDED] items-center justify-center py-8 rounded-lg shadow-md">
 						<View className="w-10/12">
 							<View className="bg-[#FFFFFF] w-full h-2/5 items-center justify-center rounded-lg">
@@ -212,12 +212,12 @@ if (!token) {
 							</View>
 
 							<TouchableOpacity
-								className="w-full h-16 items-center justify-center bg-[#fff700] rounded-lg mt-8"
+								className="w-full h-16 items-center justify-center bg-[#fff700] rounded-lg mt-16"
 								onPress={handlePost}
 								disabled={isButtonDisabled}
 							>
 								<Text
-									className="text-lg text-[#]"
+									className="text-lg"
 									style={{ fontFamily: 'poppins-medium' }}
 								>
 									Enviar
@@ -225,7 +225,6 @@ if (!token) {
 							</TouchableOpacity>
 						</View>
 					</View>
-
 					<Modal
 						transparent={true}
 						visible={successfulUploadModalVisible}

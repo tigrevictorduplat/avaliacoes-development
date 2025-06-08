@@ -14,88 +14,132 @@ import { NavigationProp } from '../../utils/types/navigation';
 import { Post } from '../../utils/types/post';
 import { UserResponse } from '../../utils/types/user-response';
 
+const MOCK_MODE = true; // Altere para false para usar a API real
+
+const mockUser: UserResponse = {
+    id: 1,
+    nome: 'Usuário Mock',
+    email: 'mock@teste.com',
+    username: 'mockuser',
+    telefone: '11999999999',
+    // Adicione outros campos necessários conforme seu tipo UserResponse
+};
+
+const mockPosts: Post[] = [
+    {
+        id: 101,
+        idUsuario: 'mock@teste.com',
+        dataCriacao: '2024-06-10T12:00:00Z',
+        titulo: 'Primeiro post mock',
+        tema: 'Saúde',
+        subtemas: 'Bem-estar, Rotina',
+        conteudo: 'Conteúdo do post mockado',
+        fotos: [
+            {
+                uri: 'https://via.placeholder.com/150',
+                name: 'mock-image-1.jpg',
+                type: 'image/jpeg'
+            }
+        ],
+    },
+    {
+        id: 102,
+        idUsuario: 'mock@teste.com',
+        dataCriacao: '2024-06-11T15:30:00Z',
+        titulo: 'Segundo post mock',
+        tema: 'Sustentabilidade',
+        subtemas: 'Meio Ambiente, Consumo',
+        conteudo: 'Outro conteúdo de teste',
+        fotos: [
+            {
+                uri: 'https://via.placeholder.com/150',
+                name: 'mock-image-2.jpg',
+                type: 'image/jpeg'
+            }
+        ],
+    },
+];
+
 const Profile = () => {
-	const navigation = useNavigation<NavigationProp>();
-	const [userProfile, setUserProfile] = useState<UserResponse | null>(null);
-	const [userPostagens, setUserPostagens] = useState<Post[]>([]);
-	const [loading, setLoading] = useState(true);
+    const navigation = useNavigation<NavigationProp>();
+    const [userProfile, setUserProfile] = useState<UserResponse | null>(null);
+    const [userPostagens, setUserPostagens] = useState<Post[]>([]);
+    const [loading, setLoading] = useState(true);
 
-	const fetchUserPosts = async (userEmail: string) => {
-		try {
-			const api = await getApiAxios();
-			const response = await api.get('/api/Cosme/receitas');
-			const userPosts = response.data.filter(
-				(posts: Post) => posts.idUsuario === userEmail
-			);
-			setUserPostagens(userPosts);
-			console.log('Postagens filtradas', userPosts)
+    const fetchUserPosts = async (userEmail: string) => {
+        try {
+            const api = await getApiAxios();
+            const response = await api.get('/api/Cosme/receitas');
+            const userPosts = response.data.filter(
+                (posts: Post) => posts.idUsuario === userEmail
+            );
+            setUserPostagens(userPosts);
+            console.log('Postagens filtradas', userPosts)
 
-		} catch (error) {
-			console.error('Erro ao carregar as postagens:', error);
-			Alert.alert('Erro', 'Não foi possível carregar os dados do perfil.');
+        } catch (error) {
+            console.error('Erro ao carregar as postagens:', error);
+            Alert.alert('Erro', 'Não foi possível carregar os dados do perfil.');
 
-		}
-	};
+        }
+    };
 
 
-	useFocusEffect(
-		React.useCallback(() => {
-			// Do something when the screen is focused
-			(async () => {
-				const token = await getToken();
-				/*
-				if (!token) {
-					alert('Você precisa realizar o login para acessar!');
-					navigation.navigate('LogIn');
-					return;
-				} else {
-					
-				} */
-				const user = await getUserDetails();
-					setUserProfile(user);
+    useFocusEffect(
+        React.useCallback(() => {
+            // Do something when the screen is focused
+            (async () => {
+                if (MOCK_MODE) {
+                    setUserProfile(mockUser);
+                    setUserPostagens(mockPosts);
+                    setLoading(false);
+                    return;
+                }
+                const token = await getToken();
+                const user = await getUserDetails();
+                setUserProfile(user);
 
-					if (user) {
-						console.log("Buscando postagens...");
-						await fetchUserPosts(user.email);
-					}
-				setLoading(false)
+                if (user) {
+                    console.log("Buscando postagens...");
+                    await fetchUserPosts(user.email);
+                }
+                setLoading(false)
 
-			})();
-			return () => {
-				setLoading(true);
-			};
-		}, []),
-	);
+            })();
+            return () => {
+                setLoading(true);
+            };
+        }, []),
+    );
 
-	if (loading) return <Spinner />;
+    if (loading) return <Spinner />;
 
-	return (
-		<SafeAreaView className="flex-1">
-			<ScrollView
-				showsVerticalScrollIndicator={false}
-				contentContainerStyle={{ paddingBottom: 45 }}
-			>
-				<View className="flex-row justify-end m-2">
-					<HeaderMenu />
-				</View>
+    return (
+        <SafeAreaView className="flex-1">
+            <ScrollView
+                showsVerticalScrollIndicator={true}
+                contentContainerStyle={{ paddingBottom: 45 }}
+            >
+                <View className="flex-row justify-end m-2">
+                    <HeaderMenu />
+                </View>
 
-				<ProfileImagesSection user={userProfile} />
+                <ProfileImagesSection user={userProfile} />
 
-				<ProfileInfo user={userProfile} />
+                <ProfileInfo user={userProfile} />
 
-				<View className="flex items-center justify-center w-full h-[40px] border-b-2 border-[#B8B8B8] mt-[32px]">
-					<Text
-						className="text-base text-[#4A4A4A]"
-						style={{ fontFamily: 'poppins-medium' }}
-					>
-						Postagens
-					</Text>
-				</View>
+                <View className="flex items-center justify-center w-full h-[40px] border-b-2 border-[#B8B8B8] mt-[32px]">
+                    <Text
+                        className="text-base text-[#4A4A4A]"
+                        style={{ fontFamily: 'poppins-medium' }}
+                    >
+                        Postagens
+                    </Text>
+                </View>
 
-				<PostList posts={userPostagens} key={userPostagens.length} />
-			</ScrollView>
-		</SafeAreaView>
-	);
+                <PostList posts={userPostagens} key={userPostagens.length} />
+            </ScrollView>
+        </SafeAreaView>
+    );
 };
 
 export default Profile;

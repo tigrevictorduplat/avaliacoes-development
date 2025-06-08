@@ -10,6 +10,43 @@ import { NavigationProp } from '../../utils/types/navigation';
 import { Post } from '../../utils/types/post';
 import Spinner from '../../Components/spinner';
 
+const MOCK_MODE = true; // Altere para false para usar a API real
+
+const mockPosts: Post[] = [
+	{
+		id: 1,
+		idUsuario: 'mock@teste.com',
+		dataCriacao: '2024-06-10T12:00:00Z',
+		titulo: 'Primeiro post mock',
+		tema: 'Saúde',
+		subtemas: 'Bem-estar, Rotina',
+		conteudo: 'Conteúdo do post mockado',
+		fotos: [
+			{
+				uri: 'https://via.placeholder.com/400x400',
+				name: 'mock-image-1.jpg',
+				type: 'image/jpeg',
+			},
+		],
+	},
+	{
+		id: 2,
+		idUsuario: 'mock@teste.com',
+		dataCriacao: '2024-06-11T15:30:00Z',
+		titulo: 'Segundo post mock',
+		tema: 'Sustentabilidade',
+		subtemas: 'Meio Ambiente, Consumo',
+		conteudo: 'Outro conteúdo de teste',
+		fotos: [
+			{
+				uri: 'https://via.placeholder.com/400x400',
+				name: 'mock-image-2.jpg',
+				type: 'image/jpeg',
+			},
+		],
+	},
+];
+
 const Home = () => {
 	const [posts, setPosts] = useState<Post[]>([]);
 	const [loading, setLoading] = useState(true);
@@ -17,6 +54,10 @@ const Home = () => {
 
 	const fetchPosts = async () => {
 		try {
+			if (MOCK_MODE) {
+				setPosts(mockPosts);
+				return;
+			}
 			const api = await getApiAxios();
 			const response = await api.get('/api/Cosme/receitas');
 

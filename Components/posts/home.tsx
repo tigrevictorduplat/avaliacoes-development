@@ -1,6 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Image, Text, View } from 'react-native';
+import { Dimensions, Image, Text, View } from 'react-native';
 import { getUserDetailsByEmail } from '../../utils/session/user-data';
 import { Post } from '../../utils/types/post';
 import { UserResponse } from '../../utils/types/user-response';
@@ -10,67 +10,66 @@ type PostProps = {
 };
 
 const PostComponent = ({ post }: PostProps) => {
-	const imageUrl =
-		post.fotos && post.fotos.length > 0 ? post.fotos[0]  : "";
-	const [userPost, setUserPost] = useState<UserResponse | null>(null);
+    const imageUrl =
+        post.fotos && post.fotos.length > 0 ? post.fotos[0].uri : "";
+    const [userPost, setUserPost] = useState<UserResponse | null>(null);
 
-	useFocusEffect(
-		React.useCallback(() => {
-			// Do something when the screen is focused
-			(async () => {
-				const user = await getUserDetailsByEmail(post.idUsuario);
-				setUserPost(user);
-			})();
-			return () => {
-				// Do something when the screen is unfocused
-				// Useful for cleanup functions
-			};
-		}, []),
-	);
+    const screenWidth = Dimensions.get('window').width;
+    const imageSize = Math.min(screenWidth * 0.92, 340);
 
-	return (
-		<View>
-			<View className="bg-primaryGray px-4 py-1 rounded-tl-xl rounded-tr-xl">
-				<View className="flex flex-row items-center gap-x-3">
-					<View className="h-11 w-11">
-						<Image
-							source={
-								userPost?.fotoUsu
-									? { uri: userPost?.fotoUsu }
-									: require('../../assets/icons/user-pages-icons/user-photo/ex-user-photo.png')
-							}
-							className="w-full h-full rounded-full"
-							resizeMode="cover"
-						/>
-					</View>
-					<Text className="font-medium">
-						{userPost?.nome || 'Autor desconhecido'}
-					</Text>
-				</View>
-			</View>
+    useFocusEffect(
+        React.useCallback(() => {
+            (async () => {
+                const user = await getUserDetailsByEmail(post.idUsuario);
+                setUserPost(user);
+            })();
+            return () => {};
+        }, [post.idUsuario]),
 
-			<View className="h-[430px] w-[430px] self-center">
-				{imageUrl ? (
-					<Image
-						source={{ uri: imageUrl as any }}
-						className="w-full h-full"
-						resizeMode="cover"
-					/>
-				) : (
-					<Text className="text-center">Imagem não disponível</Text>
-				)}
-			</View>
+    );
 
-			<View className="mx-3 space-y-1">
-				<Text className="font-medium text-2xl">
-					{post.titulo || 'Sem título'}
-				</Text>
-				<Text className="whitespace-normal w-80">
-					{post.conteudo || 'Sem descrição'}
-				</Text>
-			</View>
-		</View>
-	);
+    return (
+        <View className="bg-white rounded-xl shadow mb-4 mx-2">
+            {/* Header do post */}
+            <View className="flex-row items-center gap-x-3 px-4 py-3 rounded-t-xl bg-primaryGray">
+                <Image
+                    source={
+                        userPost?.fotoUsu
+                            ? { uri: userPost?.fotoUsu }
+                            : require('../../assets/icons/user-pages-icons/user-photo/ex-user-photo.png')
+                    }
+                    style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: '#eee' }}
+                    resizeMode="cover"
+                />
+                <Text className="font-medium text-base" numberOfLines={1} style={{ flexShrink: 1 }}>
+                    {userPost?.nome || 'Autor desconhecido'}
+                </Text>
+            </View>
+
+            {/* Imagem principal do post */}
+            <View style={{ width: imageSize, height: imageSize }} className="self-center my-2 rounded-xl overflow-hidden bg-gray-200">
+                {imageUrl ? (
+                    <Image
+                        source={{ uri: imageUrl }}
+                        style={{ width: imageSize, height: imageSize }}
+                        resizeMode="cover"
+                    />
+                ) : (
+                    <Text className="text-center mt-10">Imagem não disponível</Text>
+                )}
+            </View>
+
+            {/* Conteúdo do post */}
+            <View className="px-4 pb-4">
+                <Text className="font-semibold text-lg mb-1">
+                    {post.titulo || 'Sem título'}
+                </Text>
+                <Text className="text-base text-gray-700">
+                    {post.conteudo || 'Sem descrição'}
+                </Text>
+            </View>
+        </View>
+    );
 };
 
 export default PostComponent;
