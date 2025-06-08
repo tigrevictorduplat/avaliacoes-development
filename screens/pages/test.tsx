@@ -37,7 +37,7 @@ function DevNavigatorScreen({ navigation }) {
   ];
 
   // Nomes que devem ter botão vermelho ENQUANTO não funcionarem
-  // const redButtons = [ ];
+ // const redButtons = [ ];
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -54,7 +54,7 @@ function DevNavigatorScreen({ navigation }) {
               <Button
                 title={`Ir para ${name}`}
                 onPress={() => navigation.navigate(name, params)}
-                color={redButtons.includes(name) ? 'red' : undefined}
+               // color={redButtons.includes(name) ? 'red' : undefined}
               />
             </View>
           ))}
