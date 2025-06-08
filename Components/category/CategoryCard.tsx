@@ -112,8 +112,8 @@ const CategoryComponent = () => {
             <View className="mt-8 mb-2">
 					<View className="mx-7">
 						<Text
-							className="text-[25px] text-[#ffd750]"
-							style={{ fontFamily: 'poppins-medium', opacity: 0.6 }}
+							className="text-[25px]"
+							style={{ fontFamily: 'poppins-medium', opacity: 0.8, color: '#FFC300' }}
 						>
 							Pesquise
 						</Text>
@@ -147,20 +147,42 @@ const CategoryComponent = () => {
 					</View>
 				</View>
             <View className='mx-7 mb-3'>
-                <Text className='text-base text-[#ffd750]' style={{ fontFamily: 'poppins-medium', opacity: 0.6 }}>Filtre Por Categoria</Text>
+                <Text
+                    className='text-base'
+                    style={{ fontFamily: 'poppins-medium', opacity: 0.8, color: '#FFC300' }}
+                >
+                    Filtre Por Categoria
+                </Text>
             </View>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} className='ml-2'>
-                {categories.map((category, index) => (
-                    <TouchableOpacity
-                        key={index}
-                        className={`bg-white h-13 mb-2 p-4 mx-3 rounded-xl shadow flex-row items-center justify-between ${selectedCategories.includes(category.label) ? 'bg-[#f0e68c]' : ''}`}
-                        onPress={() => {toggleCategory(category.label); setLoading(true); setCards(true) }}
-                    >
-                        <Text className={`${selectedCategories.includes(category.label) ? 'text-white' : 'text-black'}`} style={{ fontFamily: 'poppins-medium' }}>{category.label}</Text>
-                        <Image source={category.icon} className="w-6 h-6 ml-2" />
-                    </TouchableOpacity>
-                ))}
-            </ScrollView>
+            <View style={{ maxWidth: '100%', overflow: 'scroll' }}>
+    <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={true}
+        contentContainerStyle={{ flexGrow: 1, alignItems: 'center' }}
+        style={{ overflow: 'scroll' }}
+        className='ml-2'
+    >
+        {categories.map((category, index) => (
+            <TouchableOpacity
+                key={index}
+                className={`bg-white h-13 mb-2 p-4 mx-3 rounded-xl shadow flex-row items-center justify-between ${selectedCategories.includes(category.label) ? 'bg-[#f0e68c]' : ''}`}
+                onPress={() => { toggleCategory(category.label); setLoading(true); setCards(true) }}
+            >
+                <Text
+                    className={`${selectedCategories.includes(category.label) ? 'text-[#FFD600]' : 'text-black'}`}
+                    style={{ fontFamily: 'poppins-medium' }}
+                >
+                    {category.label}
+                </Text>
+                <Image
+                    source={category.icon}
+                    className="ml-2"
+                    style={{ width: 24, height: 24, resizeMode: 'contain' }}
+                />
+            </TouchableOpacity>
+        ))}
+    </ScrollView>
+</View>
             {cards ? (
                 <>
                 <ScrollView showsVerticalScrollIndicator={false}>
