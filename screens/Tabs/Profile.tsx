@@ -114,7 +114,7 @@ const Profile = () => {
     if (loading) return <Spinner />;
 
     return (
-        <SafeAreaView className="flex-1">
+        <SafeAreaView className="flex-1 bg-[#FFFDE7]">
             <ScrollView
                 showsVerticalScrollIndicator={true}
                 contentContainerStyle={{ paddingBottom: 45 }}
@@ -123,20 +123,38 @@ const Profile = () => {
                     <HeaderMenu />
                 </View>
 
-                <ProfileImagesSection user={userProfile} />
+                <View className="mx-4 mt-2 mb-4 rounded-2xl" style={{ elevation: 2 }}>
+                    <ProfileImagesSection user={userProfile} />
+                    <ProfileInfo user={userProfile} />
+                </View>
 
-                <ProfileInfo user={userProfile} />
-
-                <View className="flex items-center justify-center w-full h-[40px] border-b-2 border-[#B8B8B8] mt-[32px]">
+                <View
+                    className="w-90 items-center"
+                    style={{
+                        marginTop: 24,
+                        marginBottom: 8,
+						marginHorizontal: 12,
+                        paddingVertical: 14,
+                        backgroundColor: '#FFF700',
+                        borderBottomWidth: 2,
+                        borderBottomColor: '#FFD600',
+                        borderRadius: 16,
+                    }}
+                >
                     <Text
-                        className="text-base text-[#4A4A4A]"
-                        style={{ fontFamily: 'poppins-medium' }}
+                        className="text-lg text-[#4A4A4A] "
+                        style={{
+                            fontFamily: 'Poppins-Medium',
+                            letterSpacing: 1,
+                        }}
                     >
                         Postagens
                     </Text>
                 </View>
 
-                <PostList posts={userPostagens} key={userPostagens.length} />
+                <View className="mx-2 mt-2 mb-2 rounded-2xl bg-white" style={{ elevation: 1 }}>
+                    <PostList posts={userPostagens} key={userPostagens.length} />
+                </View>
             </ScrollView>
         </SafeAreaView>
     );
