@@ -5,7 +5,19 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const UserDetail = ({ route }) => {
   const navigation = useNavigation();
-  const { username, description, useravatar, icon, title, CategoryIcon } = route.params;
+
+  // MOCK TEMPORÁRIO PARA VISUALIZAÇÃO
+  const mockData = {
+    username: 'usuario_teste',
+    description: 'Esta é uma descrição de teste para o usuário.',
+    useravatar: { uri: 'https://randomuser.me/api/portraits/men/1.jpg' },
+    icon: { uri: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png' },
+    title: 'Título de Teste',
+    CategoryIcon: { uri: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb' }
+  };
+
+  // Use os dados mockados ao invés dos parâmetros da rota
+  const { username, description, useravatar, icon, title, CategoryIcon } = mockData;
 
   return (
     <View className='flex-1'>
