@@ -32,20 +32,33 @@ export default function ForgotPassword() {
         >
             <ScrollView className='bg-[#F9F9F9]'>
 
-                <View className='bg-[#F9F9F9]  items-center'>
+               <View
+					className="flex-1 bg-[#F9F9F9] w-full"
+					style={{
+						minWidth: 425, // Garante que o conteúdo não fique muito estreito
+						maxWidth: 1024, // Limita a largura máxima do conteúdo
+						width: '100%',
+						alignItems: 'center',
+                        alignSelf: 'center',
+					}}
+				>
 
-                    <View className='relative flex justify-center items-center  w-full h-64 mb-6'>
-                        <Image
-                            source={require('../../assets/images/login/ImagemDeFundo.png')}
-                            className="absolute shadown top-0 left-0 w-full h-full bg-[#F9F9F9] object-cover"
-                        />
-                        <View className='justify-center items-center'>
-                            <Image
-                                source={require('../../assets/images/login/LogoDoApp.png')}
-
-                            />
-                        </View>
-                    </View>
+                    <View className="relative flex justify-center items-center w-full mb-6" style={{ aspectRatio: 1.5 }}>
+						<Image
+							source={require('../../assets/images/login/ImagemDeFundo.png')}
+							style={{
+								width: '100%',
+								height: '100%',
+								position: 'absolute',
+							}}
+							resizeMode="cover"
+						/>
+						<View className="justify-center items-center absolute w-full h-full">
+							<Image
+								source={require('../../assets/images/login/LogoDoApp.png')}
+							/>
+						</View>
+					</View>
 
 
                     {/*ForgotPassword */}

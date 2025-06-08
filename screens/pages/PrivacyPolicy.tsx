@@ -4,12 +4,16 @@ import { FontAwesome } from '@expo/vector-icons';
 
 export default function PrivacyPolicy() {
     return (
-        <ScrollView className='bg-[#F4F7F6]'>
+        <ScrollView
+            className='bg-[#F4F7F6]'
+            showsVerticalScrollIndicator={true}
+            contentContainerStyle={{ flexGrow: 1 }}
+        >
             <View className='flex-1 items-center mt-10 mb-20 p-5'>
 
                 <Text
                     style={{ fontFamily: 'poppins-semi-bold' }}
-                    className="text-[#fff750] mb-5 font-bold text-3xl shadow-sm text-center mt-5 ml-1"
+                    className="text-[#FFC300] mb-5 font-bold text-3xl text-center mt-5 ml-1"
                 >
                     Política de Privacidade
                 </Text>
@@ -17,7 +21,7 @@ export default function PrivacyPolicy() {
            
                 <View className='bg-white shadow-lg rounded-xl p-5 w-full mb-5'>
                     <View className='flex-row items-center mb-3'>
-                        <FontAwesome name="info-circle" size={24} color="#fff750" />
+                        <FontAwesome name="info-circle" size={24} color="#FFC300" />
                         <Text
                             style={{ fontFamily: 'poppins-semi-bold' }}
                             className="text-[#] text-xl font-bold ml-2"
@@ -36,7 +40,7 @@ export default function PrivacyPolicy() {
                 
                 <View className='bg-white shadow-lg rounded-xl p-5 w-full mb-5'>
                     <View className='flex-row items-center mb-3'>
-                        <FontAwesome name="cogs" size={24} color="#fff750" />
+                        <FontAwesome name="cogs" size={24} color="#FFC300" />
                         <Text
                             style={{ fontFamily: 'poppins-semi-bold' }}
                             className="text-[#] text-xl font-bold ml-2"
@@ -55,7 +59,7 @@ export default function PrivacyPolicy() {
                
                 <View className='bg-white shadow-lg rounded-xl p-5 w-full mb-5'>
                     <View className='flex-row items-center mb-3'>
-                        <FontAwesome name="share-alt" size={24} color="#fff750" />
+                        <FontAwesome name="share-alt" size={24} color="#FFC300" />
                         <Text
                             style={{ fontFamily: 'poppins-semi-bold' }}
                             className="text-[#] text-xl font-bold ml-2"
@@ -74,7 +78,7 @@ export default function PrivacyPolicy() {
                
                 <View className='bg-white shadow-lg rounded-xl p-5 w-full mb-5'>
                     <View className='flex-row items-center mb-3'>
-                        <FontAwesome name="lock" size={24} color="#fff750" />
+                        <FontAwesome name="lock" size={24} color="#FFC300" />
                         <Text
                             style={{ fontFamily: 'poppins-semi-bold' }}
                             className="text-[#] text-xl font-bold ml-2"
@@ -94,7 +98,7 @@ export default function PrivacyPolicy() {
                 
                 <View className='bg-white shadow-lg rounded-xl p-5 w-full'>
                     <View className='flex-row items-center mb-3'>
-                        <FontAwesome name="file-text" size={24} color="#fff750" />
+                        <FontAwesome name="file-text" size={24} color="#FFC300" />
                         <Text
                             style={{ fontFamily: 'poppins-semi-bold' }}
                             className="text-[#] text-xl font-bold ml-2"

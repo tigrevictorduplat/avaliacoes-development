@@ -37,7 +37,7 @@ function DevNavigatorScreen({ navigation }) {
   ];
 
   // Nomes que devem ter botão vermelho ENQUANTO não funcionarem
-  const redButtons = ['PostDetails', 'Explore', 'Profile'];
+  const redButtons = ['PostDetails', ];
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

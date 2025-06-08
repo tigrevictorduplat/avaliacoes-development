@@ -107,7 +107,8 @@ if (!token) {
 				keyExtractor={(item) => item.id.toString()}
 				renderItem={renderPost}
 				ListHeaderComponent={<HomeHeader username="john.doe" />}
-				contentContainerStyle={{ paddingBottom: 45 }}
+				contentContainerStyle={{ paddingBottom: 45, flexGrow: 1 }}
+				showsVerticalScrollIndicator={true}
 			/>
 		</View>
 	);
