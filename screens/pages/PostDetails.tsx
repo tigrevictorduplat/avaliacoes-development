@@ -9,12 +9,12 @@ import { getToken } from '../../utils/session/manager';
 import { NavigationProp } from '../../utils/types/navigation';
 import { useState } from 'react';
 const PostDetails = () => {
-	const navigation = useNavigation<NavigationProp>();
-	const route = useRoute();
-	const { id, imageUrl, titulo, conteudo } = route.params; // Parâmetros passados pela navegação
-	const [contextMenuVisible, setContextMenuVisible] = React.useState<boolean>(false);
+    const navigation = useNavigation<NavigationProp>();
+    const route = useRoute();
+    const { id, imageUrl, titulo, conteudo } = route.params;
+    const [contextMenuVisible, setContextMenuVisible] = React.useState<boolean>(false);
 
-	const removePost = async (postId: number) => {
+    const removePost = async (postId: number) => {
 		try {
 			const api = await getApiAxios();
 			const response = await api.delete(`/api/receitas/${postId}`);
@@ -84,73 +84,76 @@ if (!token) {
 
 	return (
 		<PaperProvider>
-			<SafeAreaView className="flex-1 bg-[#F9F9F9]">
+			<SafeAreaView className="flex-1 bg-[#FFFDE7]">
 				<ScrollView
-					contentContainerStyle={{ paddingBottom: 45 }}
+					contentContainerStyle={{
+						paddingBottom: 45,
+						flexGrow: 1,
+						justifyContent: 'center',
+						alignItems: 'center',
+					}}
 					showsVerticalScrollIndicator={false}
 				>
 					{/* Botão Voltar */}
 					<View className="absolute top-10 left-5 z-10">
 						<TouchableOpacity
 							onPress={() => navigation.goBack()}
-							className="bg-white p-2 rounded-full shadow-lg "
+							className="bg-white p-2 rounded-full shadow-lg"
 						>
 							<Ionicons name="chevron-back" size={24} color="#767676" />
 						</TouchableOpacity>
 					</View>
 
-					{/* Container Principal */}
-					<View className="flex-1 items-center justify-center mt-10">
+					{/* Botão de opções */}
+					<View className="absolute top-10 right-5 z-10">
+						<Menu
+							visible={contextMenuVisible}
+							onDismiss={() => setContextMenuVisible(false)}
+							anchor={
+								<TouchableOpacity onPress={() => setContextMenuVisible(true)}>
+									<Ionicons name='ellipsis-vertical' size={24} color="#FFD600" />
+								</TouchableOpacity>
+							}
+							contentStyle={{ backgroundColor: '#FFFDE7' }}
+						>
+							<Menu.Item
+								onPress={() => {
+									setContextMenuVisible(false);
+									handleRemovePost();
+								}}
+								title="Excluir Post"
+								leadingIcon={({ size }) => (
+									<Ionicons name="trash" size={size} color="#767676" />
+								)}
+								titleStyle={{ color: '#dda520', fontFamily: "poppins-semi-bold" }}
+							/>
+						</Menu>
+					</View>
 
-						{/* Botão para abrir modal "Opcoes do Post" */}
-						<View className="flex self-end mr-2 mt-16">
-							<Menu
-								visible={contextMenuVisible}
-								onDismiss={() => setContextMenuVisible(false)}
-								anchor={
-									<TouchableOpacity onPress={() => setContextMenuVisible(true)}>
-										<Ionicons name='ellipsis-vertical' size={24} color={"#fff700"} />
-									</TouchableOpacity>
-								}
-								contentStyle={{ backgroundColor: '#F9F9F9' }}
-							>
-								<Menu.Item
-									onPress={() => {
-										setContextMenuVisible(false);
-										handleRemovePost();
-									}}
-									title="Excluir Post"
-									leadingIcon={({ size }) => (
-										<Ionicons name="trash" size={size} color="#767676" />
-									)}
-									titleStyle={{ color: '#dda520', fontFamily: "poppins-semi-bold" }}
-								/>
-							</Menu>
-						</View>
+					<View className="w-full flex-1 items-center justify-center">
+						<View className="bg-white rounded-2xl shadow-lg w-11/12 max-w-xl pb-6">
+							{/* Imagem do Post */}
+							<Image
+								source={{ uri: imageUrl }}
+								className="w-full h-64 rounded-t-2xl"
+								resizeMode="cover"
+							/>
 
-						{/* Imagem do Post */}
-						<Image
-							source={{ uri: imageUrl }}
-							className="w-full h-[45vh] mt-4"
-							resizeMode="cover"
-						/>
-
-						{/* Informações do Post */}
-						<View className="w-11/12 mt-5">
-							{/* Título do Post */}
-							<Text
-								className="text-2xl mb-2 text-[#767676]"
-								style={{ fontFamily: 'poppins-semi-bold' }}
-							>
-								{titulo}
-							</Text>
-							{/* Descrição do Post */}
-							<Text
-								className="text-justify mt-2.5 leading-6 text-[#767676]"
-								style={{ fontFamily: 'poppins-medium' }}
-							>
-								{conteudo}
-							</Text>
+							{/* Informações do Post */}
+							<View className="px-5 mt-5">
+								<Text
+									className="text-2xl mb-2 text-[#FFD600]"
+									style={{ fontFamily: 'poppins-semi-bold' }}
+								>
+									{titulo}
+								</Text>
+								<Text
+									className="text-justify mt-2.5 leading-6 text-[#767676]"
+									style={{ fontFamily: 'poppins-medium' }}
+								>
+									{conteudo}
+								</Text>
+							</View>
 						</View>
 					</View>
 				</ScrollView>
