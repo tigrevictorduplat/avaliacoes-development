@@ -8,7 +8,6 @@ import {
     Platform,
     ScrollView
 } from 'react-native'
-import React from 'react'
 import { useForm, Controller } from 'react-hook-form';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
@@ -32,33 +31,20 @@ export default function ForgotPassword() {
         >
             <ScrollView className='bg-[#F9F9F9]'>
 
-               <View
-					className="flex-1 bg-[#F9F9F9] w-full"
-					style={{
-						minWidth: 425, // Garante que o conteúdo não fique muito estreito
-						maxWidth: 1024, // Limita a largura máxima do conteúdo
-						width: '100%',
-						alignItems: 'center',
-                        alignSelf: 'center',
-					}}
-				>
+                <View className='bg-[#F9F9F9]  items-center'>
 
-                    <View className="relative flex justify-center items-center w-full mb-6" style={{ aspectRatio: 1.5 }}>
-						<Image
-							source={require('../../assets/images/login/ImagemDeFundo.png')}
-							style={{
-								width: '100%',
-								height: '100%',
-								position: 'absolute',
-							}}
-							resizeMode="cover"
-						/>
-						<View className="justify-center items-center absolute w-full h-full">
-							<Image
-								source={require('../../assets/images/login/LogoDoApp.png')}
-							/>
-						</View>
-					</View>
+                    <View className='relative flex justify-center items-center  w-full h-64 mb-6'>
+                            <div style={{ backgroundColor: '#F1CB00', 
+							borderBottomLeftRadius: 100, 
+							borderBottomRightRadius: 100,  }} 
+							className="absolute w-full h-full rounded-b-3xl"/>
+                        <View className='justify-center items-center'>
+                            <Image
+                                source={require('../../assets/images/login/LogoDoApp.png')}
+
+                            />
+                        </View>
+                    </View>
 
 
                     {/*ForgotPassword */}
@@ -116,11 +102,11 @@ export default function ForgotPassword() {
 
                     {/*Button Send*/}
                     <TouchableOpacity
-                        className='w-4/5 bg-[#fff700] shadow-lg py-4 mb-5 rounded-2xl'
+                        className='w-4/5 bg-[#FFd750] shadow-lg py-4 mb-5 rounded-2xl'
                         onPress={handleSubmit((data) => {
                             console.log(data);
                         })}>
-                        <Text className='text-center text-white text-lg'>Enviar</Text>
+                        <Text className='text-center text-black text-lg'>Enviar</Text>
                     </TouchableOpacity>
                 </View>
                 <View className='flex-row justify-center items-center mb-4'>

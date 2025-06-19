@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Alert } from 'react-native';
-import React, { useState } from 'react';
+import * as React from "react";
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../../utils/types/navigation';
 import GoBackButton from '../../Components/GoBackButton';

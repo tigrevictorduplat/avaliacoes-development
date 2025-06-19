@@ -69,6 +69,17 @@ const Home = () => {
 			setLoading(false);
 		}
 	};
+	
+	const logout = async () => {
+            // Remove apenas os dados de sessão, mantendo os dados do usuário
+        await AsyncStorage.removeItem('userToken');
+        await AsyncStorage.removeItem('@currentUserEmail');
+        await AsyncStorage.removeItem('@tokenExpiration');
+        await AsyncStorage.removeItem('@quizScore');
+        
+        console.log('Usuário deslogado');
+        navigation.navigate('LogIn');
+	}
 
 	useFocusEffect(
 		React.useCallback(() => {
@@ -101,17 +112,16 @@ if (!token) {
 	if (loading) return <Spinner />;
 
 	return (
-		<View className="flex-1 space-y-2 pt-4 bg-white">
-			<FlatList
-				data={posts}
-				keyExtractor={(item) => item.id.toString()}
-				renderItem={renderPost}
-				ListHeaderComponent={<HomeHeader username="john.doe" />}
-				contentContainerStyle={{ paddingBottom: 45, flexGrow: 1 }}
-				showsVerticalScrollIndicator={true}
-			/>
-		</View>
-	);
+    <SafeAreaView>
+      <View>
+        <TouchableOpacity onPress={() => navigation.navigate('Receitas')} />
+        <TouchableOpacity onPress={() => navigation.navigate('Settings')} />
+        <TouchableOpacity onPress={() => navigation.navigate('Quiz')} />
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')} />
+        <TouchableOpacity onPress={logout} />
+      </View>
+    </SafeAreaView>
+  );
 };
 
 type HomeHeaderProps = {
@@ -129,6 +139,9 @@ const HomeHeader = ({ username }: HomeHeaderProps) => {
 						<Image
 							source={require('../../assets/images/login/LogoAppHome.png')}
 						/>
+						borderBottomLeftRadius: 100, 
+						borderBottomRightRadius: 100,  }} 
+						className="absolute w-full h-full rounded-b-3xl"/>
 					</View>
 				</View>
 			</View>

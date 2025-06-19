@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
 import {
 	Image,
 	KeyboardAvoidingView,
@@ -16,8 +15,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { axiosLogin } from '../../services/axios';
 import { RegisterFormData } from '../../utils/types/form/formData';
 import { NavigationProp } from '../../utils/types/navigation';
-import { Alert } from 'react-native';
-
 
 export default function Register() {
 	/* Este código retorna exceção na pagina Register */
@@ -55,30 +52,14 @@ export default function Register() {
 			className="flex-1 bg-[#F9F9F9]"
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 		>
-			<ScrollView
-				className="bg-[#F9F9F9]"
-				contentContainerStyle={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}
-			>
-				<View
-					className="flex-1 bg-[#F9F9F9] w-full"
-					style={{
-						minWidth: 425, // Garante que o conteúdo não fique muito estreito
-						maxWidth: 700, // Limita a largura máxima do conteúdo
-						width: '100%',
-						alignSelf: 'center',
-					}}
-				>
-					<View className="relative flex justify-center items-center w-full mb-6" style={{ aspectRatio: 1.5 }}>
-						<Image
-							source={require('../../assets/images/login/ImagemDeFundo.png')}
-							style={{
-								width: '100%',
-								height: '100%',
-								position: 'absolute',
-							}}
-							resizeMode="cover"
-						/>
-						<View className="justify-center items-center absolute w-full h-full">
+			<ScrollView className="bg-[#F9F9F9]">
+				<View className="flex-1 bg-[#F9F9F9]  ">
+					<View className="relative flex justify-center items-center  w-full h-64 mb-6">
+							<div style={{ backgroundColor: '#F1CB00', 
+							borderBottomLeftRadius: 100, 
+							borderBottomRightRadius: 100,  }} 
+							className="absolute w-full h-full rounded-b-3xl"/>
+						<View className="justify-center items-center">
 							<Image
 								source={require('../../assets/images/login/LogoDoApp.png')}
 							/>
@@ -315,7 +296,7 @@ export default function Register() {
 
 							disabled={isSubmitting}
 						>
-							<Text className="text-center text-white text-lg">Registrar</Text>
+							<Text className="text-center text-[#000000] text-lg">Registrar</Text>
 						</TouchableOpacity>
 					</View>
 
@@ -327,7 +308,7 @@ export default function Register() {
 							className="shadow text-[#767676]"
 							onPress={() => navigation.navigate('LogIn')}
 						>
-							<Text className="font-semibold text-sm text-[#FFA500] ml-1">
+							<Text className="font-semibold text-sm text-[#ffa520] ml-1">
 								Entrar
 							</Text>
 						</TouchableOpacity>
